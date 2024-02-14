@@ -39,6 +39,26 @@ export class UsuariosController {
             res.status(404).send('No se ha encontrado el archivo.');
         }
     }
+    //Ruta para desactivar usuario
+    @HttpCode(200)
+    @UseGuards(AuthGuard())
+    @Post('desactivar')
+    async desactivarUsuario(
+        @User() user: UsuarioEntity,
+        @Body() dto: { id: number }
+    ) {
+        return await this._usuariosService.desactivarUsuario(user, dto.id);
+    }
 
+    //Ruta para activar usuario
+    @HttpCode(200)
+    @UseGuards(AuthGuard())
+    @Post('activar')
+    async activarUsuario(
+        @User() user: UsuarioEntity,
+        @Body() dto: { id: number }
+    ) {
+        return await this._usuariosService.activarUsuario(user, dto.id);
+    }
     
 }

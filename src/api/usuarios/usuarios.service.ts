@@ -48,6 +48,36 @@ export class UsuariosService {
 
         } 
     }
+    //Desactivar usuario 
+    //http://localhost:7001/api/usuarios/desactivar/
+
+    async desactivarUsuario(user: UsuarioEntity, idUsuario: number) {
+        const estado = 'INACTIVO';
+        const sp = 'CALL sp_user_activar_desactivar(?, ?)';
+        const parametros = [idUsuario, estado];
+        try {
+            const result = await this.dataSource.query(sp, parametros);
+            return { ok: true, message: 'Usuario desactivado correctamente.', result: result[0] };
+        } catch (error) {
+            return { ok: false, message: 'No se pudo desactivar el usuario. ' + error.message };
+        }
+    }
+
+    //Activar Usuario 
+    //http://localhost:7001/api/usuarios/activar/
+
+    async activarUsuario(user: UsuarioEntity, idUsuario: number) {
+        const estado = 'ACTIVO'; 
+        const sp = 'CALL sp_user_activar_desactivar(?,?)';
+        const parametros = [idUsuario, estado];
+        try {
+            const result = await this.dataSource.query(sp, parametros);
+            return { ok: true, message: 'Usuario activado correctamente.', result: result[0] };
+        
+        } catch (error) {
+            return { ok: false, message: 'No se pudo activar el usuario. ' + error.message };
+        }
+    }
 
 
 }
