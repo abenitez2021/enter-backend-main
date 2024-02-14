@@ -60,5 +60,6 @@ export class UsuariosController {
     ) {
         return await this._usuariosService.activarUsuario(user, dto.id);
     }
+  
     
 }
